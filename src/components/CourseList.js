@@ -7,6 +7,7 @@ function CourseList(props) {
     <table className="table">
       <thead>
         <tr>
+          <th>&nbsp;</th>
           <th>Title</th>
           <th>Author ID</th>
           <th>Catrgory</th>
@@ -16,7 +17,17 @@ function CourseList(props) {
         {props.courses.map((course) => {
           return (
             <tr key={course.id}>
-              <td><Link to={"/course/"+course.slug}>{course.title}</Link></td>
+              <td>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => props.deleteCourse(course.id)}
+                >
+                  Delete
+                </button>
+              </td>
+              <td>
+                <Link to={"/course/" + course.slug}>{course.title}</Link>
+              </td>
               <td>{course.authorId}</td>
               <td>{course.category}</td>
             </tr>
@@ -28,6 +39,7 @@ function CourseList(props) {
 }
 
 CourseList.prototype = {
+  deleteCourse: PropTypes.func.isRequired,
   courses: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
